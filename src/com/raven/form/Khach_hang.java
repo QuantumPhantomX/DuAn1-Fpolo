@@ -5,7 +5,7 @@
  */
 package com.raven.form;
 
-import entity.KhachHang;
+import Model_KhachHang_NhanVien.KhachHang;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
-import service.KhachHangService1;
+import Repository_KhachHang_NhanVien.KhachHangService1;
 
 /**
  *

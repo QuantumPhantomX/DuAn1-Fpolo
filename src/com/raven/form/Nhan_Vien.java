@@ -5,7 +5,7 @@
  */
 package com.raven.form;
 
-import entity.NhanVien;
+import Model_KhachHang_NhanVien.NhanVien;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -17,7 +17,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
-import service.NhanVienService;
+import Repository_KhachHang_NhanVien.NhanVienService;
 
 /**
  *

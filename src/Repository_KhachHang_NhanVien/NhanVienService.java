@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package service;
+package Repository_KhachHang_NhanVien;
 
 import com.raven.connect.DBConnect;
-import entity.NhanVien;
+import Model_KhachHang_NhanVien.NhanVien;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

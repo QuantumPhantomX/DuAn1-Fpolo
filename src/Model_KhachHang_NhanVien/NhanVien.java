@@ -1,4 +1,4 @@
-package entity;
+package Model_KhachHang_NhanVien;
 
 import java.util.Date;
 
