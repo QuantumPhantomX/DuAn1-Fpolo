@@ -16,9 +16,10 @@ import java.util.ArrayList;
  * @author Admin
  */
 public class KhachHangService1 {
+
     public ArrayList<KhachHang> getAllSV() {
         String sql = "SELECT ID, HoTen, DiaChi, SoDienThoai, Email, GioiTinh, TrangThai, NgayTao FROM KhachHang";
-        try ( Connection cn = DBConnect.getConnection();  PreparedStatement ps = cn.prepareStatement(sql)) {
+        try (Connection cn = DBConnect.getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             ArrayList<KhachHang> listSV = new ArrayList<>();
             while (rs.next()) {
@@ -28,7 +29,7 @@ public class KhachHangService1 {
                 khachHang.setDiaChi(rs.getString(3));
                 khachHang.setSoDienThoai(rs.getString(4));
                 khachHang.setEmail(rs.getString(5));
-                khachHang.setGioiTinh(rs.getString(6)); 
+                khachHang.setGioiTinh(rs.getString(6));
                 khachHang.setTrangThai(rs.getString(7));
                 khachHang.setNgayTao(rs.getDate(8));
                 listSV.add(khachHang);
@@ -46,7 +47,7 @@ public class KhachHangService1 {
 
         int check = 0;
 
-        try ( Connection cn = DBConnect.getConnection();  PreparedStatement ps = cn.prepareStatement(sql)) {
+        try (Connection cn = DBConnect.getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
             ps.setInt(1, kh.getID());
             ps.setString(2, kh.getHoTen());
             ps.setString(3, kh.getDiaChi());
@@ -63,18 +64,18 @@ public class KhachHangService1 {
         return check > 0;
     }
 
-    public boolean suaKhachHang(KhachHang kh, int ma) { 
+    public boolean suaKhachHang(KhachHang kh, int ma) {
         String sql = "UPDATE KhachHang SET HoTen=?, DiaChi=?, SoDienThoai=?, Email=?, GioiTinh=?, TrangThai=? WHERE ID=?";
         int check = 0;
 
-        try ( Connection cn = DBConnect.getConnection();  PreparedStatement ps = cn.prepareStatement(sql)) {
+        try (Connection cn = DBConnect.getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
             ps.setString(1, kh.getHoTen());
             ps.setString(2, kh.getDiaChi());
             ps.setString(3, kh.getSoDienThoai());
             ps.setString(4, kh.getEmail());
             ps.setString(5, kh.getGioiTinh());
             ps.setString(6, kh.getTrangThai());
-            ps.setInt(7, ma); 
+            ps.setInt(7, ma);
 
             check = ps.executeUpdate();
         } catch (Exception e) {
@@ -87,7 +88,7 @@ public class KhachHangService1 {
     public ArrayList<KhachHang> timKiemKHTen(String hoVaTen) {
         String sql = "SELECT ID, HoTen, DiaChi, SoDienThoai, Email, GioiTinh, TrangThai, NgayTao FROM KhachHang "
                 + "WHERE lower(HoTen) COLLATE Latin1_General_CI_AI LIKE lower(?) COLLATE Latin1_General_CI_AI";
-        try ( Connection cn = DBConnect.getConnection();  PreparedStatement ps = cn.prepareStatement(sql)) {
+        try (Connection cn = DBConnect.getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
             ps.setString(1, "%" + hoVaTen + "%");
             ResultSet rs = ps.executeQuery();
             ArrayList<KhachHang> listKH = new ArrayList<>();
@@ -109,4 +110,39 @@ public class KhachHangService1 {
         }
         return null;
     }
+
+    ////////////////////////////////////////////////////////////////
+    public KhachHang timKiemKhachHangTheoSDT(String soDienThoai) {
+        String sql = "SELECT * FROM KHACHHANG WHERE SoDienThoai = ?";
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, soDienThoai);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                KhachHang kh = new KhachHang();
+                kh.setID(rs.getInt("ID"));
+                kh.setHoTen(rs.getString("HoTen"));
+                // ... (Lấy các thuộc tính khác của KhachHang từ ResultSet)
+                return kh;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null; // Không tìm thấy khách hàng
+    }
+
+    public ArrayList<String> getDanhSachSoDienThoai() {
+        ArrayList<String> danhSachSDT = new ArrayList<>();
+        String sql = "SELECT SoDienThoai FROM KHACHHANG";
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                danhSachSDT.add(rs.getString("SoDienThoai"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return danhSachSDT;
+    }
+
 }
