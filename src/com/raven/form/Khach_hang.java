@@ -14,6 +14,9 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 import Repository_KhachHang_NhanVien.KhachHangService1;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -122,7 +125,7 @@ public class Khach_hang extends javax.swing.JPanel {
         }
 
         int idKH = Integer.parseInt(maKH); // Chuyển đổi maKH thành số nguyên
-        KhachHang kh = new KhachHang(idKH, hoTen, diaChi, soDienThoai, email, gioiTinh, trangThai, null); // Thay đổi kiểu dữ liệu của maKH thành int
+        KhachHang kh = new KhachHang(idKH, hoTen, diaChi, soDienThoai, email, gioiTinh, null, trangThai); // Thay đổi kiểu dữ liệu của maKH thành int
         return kh;
     }
 
@@ -697,8 +700,12 @@ public class Khach_hang extends javax.swing.JPanel {
         // Hiển thị hộp thoại xác nhận trước khi thêm
         int result = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn thêm khách hàng này?", "Xác nhận thêm", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
-            // Thực hiện thêm khách hàng
-            ser.themKhachHang(kh);
+            try {
+                // Thực hiện thêm khách hàng
+                ser.themKhachHang(kh);
+            } catch (SQLException ex) {
+                Logger.getLogger(Khach_hang.class.getName()).log(Level.SEVERE, null, ex);
+            }
             list = ser.getAllSV();
             JOptionPane.showMessageDialog(this, "Thêm thành công !");
             loadTable(list);

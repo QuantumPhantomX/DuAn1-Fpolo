@@ -1,24 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model_KhachHang_NhanVien;
 
 import java.util.Date;
 
-/**
- *
- * @author Admin
- */
 public class KhachHang {
-     private int ID;
+    private int ID;
     private String HoTen;
     private String DiaChi;
     private String SoDienThoai;
     private String Email;
     private String GioiTinh;
-    private String TrangThai;
     private Date NgayTao;
+    private String TrangThai;
+
+    public KhachHang() {
+    }
+
+    public KhachHang(int ID, String HoTen, String DiaChi, String SoDienThoai, String Email, String GioiTinh, Date NgayTao, String TrangThai) {
+        this.ID = ID;
+        this.HoTen = HoTen;
+        this.DiaChi = DiaChi;
+        this.SoDienThoai = SoDienThoai;
+        this.Email = Email;
+        this.GioiTinh = GioiTinh;
+        this.NgayTao = NgayTao;
+        this.TrangThai = TrangThai;
+    }
 
     public int getID() {
         return ID;
@@ -52,17 +58,6 @@ public class KhachHang {
         this.SoDienThoai = SoDienThoai;
     }
 
-    public KhachHang(int ID, String HoTen, String DiaChi, String SoDienThoai, String Email, String GioiTinh, String TrangThai, Date NgayTao) {
-        this.ID = ID;
-        this.HoTen = HoTen;
-        this.DiaChi = DiaChi;
-        this.SoDienThoai = SoDienThoai;
-        this.Email = Email;
-        this.GioiTinh = GioiTinh;
-        this.TrangThai = TrangThai;
-        this.NgayTao = NgayTao;
-    }
-
     public String getEmail() {
         return Email;
     }
@@ -79,14 +74,6 @@ public class KhachHang {
         this.GioiTinh = GioiTinh;
     }
 
-    public String getTrangThai() {
-        return TrangThai;
-    }
-
-    public void setTrangThai(String TrangThai) {
-        this.TrangThai = TrangThai;
-    }
-
     public Date getNgayTao() {
         return NgayTao;
     }
@@ -95,8 +82,11 @@ public class KhachHang {
         this.NgayTao = NgayTao;
     }
 
-    public KhachHang() {
+    public String getTrangThai() {
+        return TrangThai;
     }
 
-    
+    public void setTrangThai(String TrangThai) {
+        this.TrangThai = TrangThai;
+    }
 }

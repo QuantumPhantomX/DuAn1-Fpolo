@@ -17,11 +17,8 @@ public class Repository_HoaDon {
 
     public ArrayList<HoaDon> getAll() {
         ArrayList<HoaDon> listHoaDon = new ArrayList<>();
-        String sql = "SELECT hd.ID, nv.HoTen AS TenNhanVien, kh.HoTen AS TenKhachHang, httt.HinhThuc AS HinhThucThanhToan, hd.LichSuHoaDon, hd.TongTien, hd.HoTen, hd.DiaChi, hd.SoDienThoai, hd.Email, hd.NgayTao, hd.NgaySua, hd.TrangThai "
-                + "FROM HOADON hd "
-                + "JOIN NHANVIEN nv ON hd.ID_NhanVien = nv.ID "
-                + "JOIN KHACHHANG kh ON hd.ID_KhachHang = kh.ID "
-                + "JOIN HINHTHUCTHANHTOAN httt ON hd.ID_HinhThucThanhToan = httt.ID";
+        String sql = "SELECT ID, TenNhanVien, TenKhachHang, HinhThucThanhToan, LichSuHoaDon, TongTien, NgayTao, NgaySua, TrangThai "
+                + "FROM HOADON";
 
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
@@ -33,10 +30,6 @@ public class Repository_HoaDon {
                 hoaDon.setHinhThucThanhToan(rs.getString("HinhThucThanhToan"));
                 hoaDon.setLichSuHoaDon(rs.getString("LichSuHoaDon"));
                 hoaDon.setTongTien(rs.getBigDecimal("TongTien"));
-                hoaDon.setHoTen(rs.getString("HoTen"));
-                hoaDon.setDiaChi(rs.getString("DiaChi"));
-                hoaDon.setSoDienThoai(rs.getString("SoDienThoai"));
-                hoaDon.setEmail(rs.getString("Email"));
                 hoaDon.setNgayTao(rs.getDate("NgayTao"));
                 hoaDon.setNgaySua(rs.getDate("NgaySua"));
                 hoaDon.setTrangThai(rs.getString("TrangThai"));
@@ -54,12 +47,9 @@ public class Repository_HoaDon {
 
     public ArrayList<HoaDon> timKiemHoaDonTheoMa(int maHoaDon) {
         ArrayList<HoaDon> listHoaDon = new ArrayList<>();
-        String sql = "SELECT hd.ID, nv.HoTen AS TenNhanVien, kh.HoTen AS TenKhachHang, httt.HinhThuc AS HinhThucThanhToan, hd.LichSuHoaDon, hd.TongTien, hd.HoTen, hd.DiaChi, hd.SoDienThoai, hd.Email, hd.NgayTao, hd.NgaySua, hd.TrangThai "
-                + "FROM HOADON hd "
-                + "JOIN NHANVIEN nv ON hd.ID_NhanVien = nv.ID "
-                + "JOIN KHACHHANG kh ON hd.ID_KhachHang = kh.ID "
-                + "JOIN HINHTHUCTHANHTOAN httt ON hd.ID_HinhThucThanhToan = httt.ID "
-                + "WHERE hd.ID = ?";
+        String sql = "SELECT ID, TenNhanVien, TenKhachHang, HinhThucThanhToan, LichSuHoaDon, TongTien, NgayTao, NgaySua, TrangThai "
+                + "FROM HOADON "
+                + "WHERE ID = ?";
 
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -74,10 +64,6 @@ public class Repository_HoaDon {
                 hoaDon.setHinhThucThanhToan(rs.getString("HinhThucThanhToan"));
                 hoaDon.setLichSuHoaDon(rs.getString("LichSuHoaDon"));
                 hoaDon.setTongTien(rs.getBigDecimal("TongTien"));
-                hoaDon.setHoTen(rs.getString("HoTen"));
-                hoaDon.setDiaChi(rs.getString("DiaChi"));
-                hoaDon.setSoDienThoai(rs.getString("SoDienThoai"));
-                hoaDon.setEmail(rs.getString("Email"));
                 hoaDon.setNgayTao(rs.getDate("NgayTao"));
                 hoaDon.setNgaySua(rs.getDate("NgaySua"));
                 hoaDon.setTrangThai(rs.getString("TrangThai"));
@@ -96,11 +82,8 @@ public class Repository_HoaDon {
     public ArrayList<HoaDon> timKiemHoaDon(String trangThai, String hinhThucThanhToan, Date ngayBatDau, Date ngayKetThuc) {
         ArrayList<HoaDon> listHoaDon = new ArrayList<>();
 
-        String sql = "SELECT hd.ID, nv.HoTen AS TenNhanVien, kh.HoTen AS TenKhachHang, httt.HinhThuc AS HinhThucThanhToan, hd.LichSuHoaDon, hd.TongTien, hd.HoTen, hd.DiaChi, hd.SoDienThoai, hd.Email, hd.NgayTao, hd.NgaySua, hd.TrangThai "
+        String sql = "SELECT hd.ID, hd.TenNhanVien, hd.TenKhachHang, hd.HinhThucThanhToan, hd.LichSuHoaDon, hd.TongTien, hd.NgayTao, hd.NgaySua, hd.TrangThai "
                 + "FROM HOADON hd "
-                + "JOIN NHANVIEN nv ON hd.ID_NhanVien = nv.ID "
-                + "JOIN KHACHHANG kh ON hd.ID_KhachHang = kh.ID "
-                + "JOIN HINHTHUCTHANHTOAN httt ON hd.ID_HinhThucThanhToan = httt.ID "
                 + "WHERE 1=1 ";
 
         ArrayList<Object> params = new ArrayList<>();
@@ -109,7 +92,7 @@ public class Repository_HoaDon {
             params.add(trangThai);
         }
         if (hinhThucThanhToan != null && !hinhThucThanhToan.equals("Tất cả")) {
-            sql += " AND httt.HinhThuc = ?";
+            sql += " AND hd.HinhThucThanhToan = ?";
             params.add(hinhThucThanhToan);
         }
         if (ngayBatDau != null && ngayKetThuc != null) {
@@ -134,10 +117,6 @@ public class Repository_HoaDon {
                 hoaDon.setHinhThucThanhToan(rs.getString("HinhThucThanhToan"));
                 hoaDon.setLichSuHoaDon(rs.getString("LichSuHoaDon"));
                 hoaDon.setTongTien(rs.getBigDecimal("TongTien"));
-                hoaDon.setHoTen(rs.getString("HoTen"));
-                hoaDon.setDiaChi(rs.getString("DiaChi"));
-                hoaDon.setSoDienThoai(rs.getString("SoDienThoai"));
-                hoaDon.setEmail(rs.getString("Email"));
                 hoaDon.setNgayTao(rs.getDate("NgayTao"));
                 hoaDon.setNgaySua(rs.getDate("NgaySua"));
                 hoaDon.setTrangThai(rs.getString("TrangThai"));
@@ -151,5 +130,4 @@ public class Repository_HoaDon {
 
         return listHoaDon;
     }
-
 }

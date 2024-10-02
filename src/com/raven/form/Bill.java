@@ -108,17 +108,17 @@ public final class Bill extends javax.swing.JPanel {
         tblHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tblHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Hóa Đơn", "Nhân viên", "Khách hàng", "Hình thức thanh toán", "Lịch sử", "Tổng Tiền", "Họ tên", "Địa chỉ", "SĐT", "Email", "Ngày tạo", "Ngày sửa", "Trạng thái"
+                "Mã Hóa Đơn", "Nhân viên", "Khách hàng", "Hình thức thanh toán", "Ghi chú", "Tổng Tiền", "Ngày tạo", "Ngày sửa", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

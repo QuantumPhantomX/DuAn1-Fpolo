@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.sql.SQLException;
 
 /**
  *
@@ -41,13 +42,10 @@ public class KhachHangService1 {
         return null;
     }
 
-    public boolean themKhachHang(KhachHang kh) {
-        String sql = "INSERT INTO KhachHang (ID, HoTen, DiaChi, SoDienThoai, Email, GioiTinh, TrangThai, NgayTao) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, GETDATE())";
+    public void themKhachHang(KhachHang kh) throws SQLException {
+        String sql = "INSERT INTO KHACHHANG (ID, HoTen, DiaChi, SoDienThoai, Email, GioiTinh, NgayTao, TrangThai) VALUES (?, ?, ?, ?, ?, ?, GETDATE(), ?)";
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
-        int check = 0;
-
-        try (Connection cn = DBConnect.getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
             ps.setInt(1, kh.getID());
             ps.setString(2, kh.getHoTen());
             ps.setString(3, kh.getDiaChi());
@@ -56,12 +54,23 @@ public class KhachHangService1 {
             ps.setString(6, kh.getGioiTinh());
             ps.setString(7, kh.getTrangThai());
 
-            check = ps.executeUpdate();
-        } catch (Exception e) {
+            ps.executeUpdate();
+        } catch (SQLException e) {
             e.printStackTrace();
+            throw e;
         }
+    }
 
-        return check > 0;
+    public int generateNewKhachHangId() throws SQLException {
+        String sql = "SELECT MAX(ID) AS maxId FROM KHACHHANG";
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                int maxId = rs.getInt("maxId");
+                return maxId + 1;
+            }
+        }
+        return 1;
     }
 
     public boolean suaKhachHang(KhachHang kh, int ma) {
@@ -86,7 +95,7 @@ public class KhachHangService1 {
     }
 
     public ArrayList<KhachHang> timKiemKHTen(String hoVaTen) {
-        String sql = "SELECT ID, HoTen, DiaChi, SoDienThoai, Email, GioiTinh, TrangThai, NgayTao FROM KhachHang "
+        String sql = "SELECT ID, HoTen, DiaChi, SoDienThoai, Email, GioiTinh, NgayTao, TrangThai FROM KhachHang "
                 + "WHERE lower(HoTen) COLLATE Latin1_General_CI_AI LIKE lower(?) COLLATE Latin1_General_CI_AI";
         try (Connection cn = DBConnect.getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
             ps.setString(1, "%" + hoVaTen + "%");
@@ -100,8 +109,8 @@ public class KhachHangService1 {
                 khachHang.setSoDienThoai(rs.getString(4));
                 khachHang.setEmail(rs.getString(5));
                 khachHang.setGioiTinh(rs.getString(6));
-                khachHang.setTrangThai(rs.getString(7));
-                khachHang.setNgayTao(rs.getDate(8));
+                khachHang.setTrangThai(rs.getString(8));
+                khachHang.setNgayTao(rs.getDate(7));
                 listKH.add(khachHang);
             }
             return listKH;
@@ -122,13 +131,12 @@ public class KhachHangService1 {
                 KhachHang kh = new KhachHang();
                 kh.setID(rs.getInt("ID"));
                 kh.setHoTen(rs.getString("HoTen"));
-                // ... (Lấy các thuộc tính khác của KhachHang từ ResultSet)
                 return kh;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null; // Không tìm thấy khách hàng
+        return null;
     }
 
     public ArrayList<String> getDanhSachSoDienThoai() {
