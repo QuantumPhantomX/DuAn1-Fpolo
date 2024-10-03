@@ -65,12 +65,13 @@ public class Sell extends javax.swing.JPanel {
             model.addRow(hdct1.toDataRow());
         }
     }
-     void fillTable2(){
-       ArrayList<HoaDonChiTiet> list = new ArrayList<>();
-       DefaultTableModel model = (DefaultTableModel) tblBangCho.getModel();
-            model.setRowCount(0);
-            for (HoaDonChiTiet hdct : list) {
-                model.addRow(new Object[]{
+
+    void fillTable2() {
+        ArrayList<HoaDonChiTiet> list = new ArrayList<>();
+        DefaultTableModel model = (DefaultTableModel) tblBangCho.getModel();
+        model.setRowCount(0);
+        for (HoaDonChiTiet hdct : list) {
+            model.addRow(new Object[]{
                 null,
                 null,
                 null,
@@ -78,7 +79,7 @@ public class Sell extends javax.swing.JPanel {
                 null,
                 null
             });
-            }
+        }
     }
 
     /**
@@ -97,8 +98,7 @@ public class Sell extends javax.swing.JPanel {
         btnDeleteGH = new javax.swing.JButton();
         jScrollBar1 = new javax.swing.JScrollBar();
         jPanel1 = new javax.swing.JPanel();
-        cboTrangThai = new javax.swing.JComboBox<>();
-        btnHuyDon = new javax.swing.JButton();
+        cboLocHoaDon = new javax.swing.JComboBox<>();
         btnTaoHD = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -138,6 +138,7 @@ public class Sell extends javax.swing.JPanel {
         jLabel18 = new javax.swing.JLabel();
         btnSuccesHoaDon = new javax.swing.JButton();
         btnSuccesHoaDon1 = new javax.swing.JButton();
+        btnHuyDon = new javax.swing.JButton();
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Giỏ hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
@@ -220,19 +221,11 @@ public class Sell extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Hóa đơn", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
-        cboTrangThai.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chưa thanh toán", "Đã thanh toán", "Đã hủy" }));
-        cboTrangThai.addActionListener(new java.awt.event.ActionListener() {
+        cboLocHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cboLocHoaDon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chưa thanh toán", "Đã thanh toán", "Đã hủy" }));
+        cboLocHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboTrangThaiActionPerformed(evt);
-            }
-        });
-
-        btnHuyDon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnHuyDon.setText("Hủy đơn");
-        btnHuyDon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHuyDonActionPerformed(evt);
+                cboLocHoaDonActionPerformed(evt);
             }
         });
 
@@ -287,10 +280,8 @@ public class Sell extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(135, 135, 135)
                 .addComponent(btnTaoHD)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnHuyDon)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(103, 103, 103)
+                .addComponent(cboLocHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -303,8 +294,7 @@ public class Sell extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnHuyDon)
+                    .addComponent(cboLocHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTaoHD)
                     .addComponent(btnClear))
                 .addContainerGap(142, Short.MAX_VALUE))
@@ -388,13 +378,12 @@ public class Sell extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtTimKiem1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(3, 3, 3)))
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTimKiem1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Giỏ hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
@@ -602,30 +591,18 @@ public class Sell extends javax.swing.JPanel {
             }
         });
 
+        btnHuyDon.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnHuyDon.setText("Hủy đơn");
+        btnHuyDon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHuyDonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel18))
-                        .addGap(58, 58, 58)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtTongTien, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                            .addComponent(txtMaHoaDon)))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnSuccesHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
-                            .addComponent(btnSuccesHoaDon1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addGap(22, 22, 22)
-                        .addComponent(cboHinhThucThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel9Layout.createSequentialGroup()
@@ -637,6 +614,30 @@ public class Sell extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtTienThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 28, Short.MAX_VALUE))
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel9Layout.createSequentialGroup()
+                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel12)
+                                .addComponent(jLabel18))
+                            .addGap(58, 58, 58)
+                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtTongTien, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                                .addComponent(txtMaHoaDon)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel9Layout.createSequentialGroup()
+                            .addComponent(jLabel15)
+                            .addGap(22, 22, 22)
+                            .addComponent(cboHinhThucThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnSuccesHoaDon1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnSuccesHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE))))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnHuyDon, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -663,9 +664,11 @@ public class Sell extends javax.swing.JPanel {
                     .addComponent(jLabel17))
                 .addGap(44, 44, 44)
                 .addComponent(btnSuccesHoaDon)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSuccesHoaDon1)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnHuyDon)
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -718,12 +721,39 @@ public class Sell extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cboTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTrangThaiActionPerformed
-
-    }//GEN-LAST:event_cboTrangThaiActionPerformed
+    private void cboLocHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboLocHoaDonActionPerformed
+        locHoaDon();
+    }//GEN-LAST:event_cboLocHoaDonActionPerformed
 
     private void btnHuyDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyDonActionPerformed
+        try {
+            int idHoaDon = Integer.parseInt(txtMaHoaDon.getText());
+            HoaDon hoaDon = bh.getHoaDonById(idHoaDon);
+            if (hoaDon == null) {
+                JOptionPane.showMessageDialog(this, "Chưa chọn hóa đơn");
+                return;
+            }
+            if (hoaDon.getTrangThai().equals("Đã thanh toán")) {
+                JOptionPane.showMessageDialog(this, "Không thể hủy hóa đơn đã thanh toán.");
+                return;
+            }
 
+            String lyDoHuy = JOptionPane.showInputDialog(this, "Nhập lý do hủy đơn:", "Hủy đơn hàng", JOptionPane.PLAIN_MESSAGE);
+            if (lyDoHuy == null || lyDoHuy.isEmpty()) {
+                return;
+            }
+
+            hoaDon.setTrangThai("Đã hủy");
+            hoaDon.setLichSuHoaDon(lyDoHuy);
+            bh.capNhatHoaDonTrangThai(hoaDon);
+            fillTableHoaDon(bh.getHoaDonChuaThanhToan());
+
+            JOptionPane.showMessageDialog(this, "Hủy đơn hàng thành công!");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Mã hóa đơn không hợp lệ.");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi hủy đơn hàng: " + e.getMessage());
+        }
     }//GEN-LAST:event_btnHuyDonActionPerformed
 
     private void btnTaoHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHDActionPerformed
@@ -771,18 +801,20 @@ public class Sell extends javax.swing.JPanel {
         int selectedRow = tblBangCho.getSelectedRow();
         if (selectedRow >= 0) {
             try {
+                int idHoaDon = Integer.parseInt(txtMaHoaDon.getText());
+                String trangThaiHoaDon = bh.getTrangThaiHoaDonById(idHoaDon);
+                if (trangThaiHoaDon != null && (trangThaiHoaDon.equals("Đã thanh toán") || trangThaiHoaDon.equals("Đã hủy"))) {
+                    JOptionPane.showMessageDialog(this, "Không thể xóa sản phẩm khỏi hóa đơn đã thanh toán hoặc đã hủy.");
+                    return;
+                }
                 int idHoaDonChiTiet = (int) tblBangCho.getValueAt(selectedRow, 0);
-                String idSanPhamChiTiet = (String) tblBangCho.getValueAt(selectedRow, 2);
-                int soLuong = (int) tblBangCho.getValueAt(selectedRow, 10); // Lấy số lượng từ bảng giỏ hàng
 
-                // Xóa khỏi HOADONCHITIET
+                String idSanPhamChiTiet = (String) tblBangCho.getValueAt(selectedRow, 2);
+                int soLuong = (int) tblBangCho.getValueAt(selectedRow, 10);
+
                 bh.xoaHoaDonChiTiet(idHoaDonChiTiet);
 
-                // Tăng số lượng tồn kho trong SANPHAMCHITIET
                 bh.tangSoLuongTonKho(idSanPhamChiTiet, soLuong);
-
-                // Cập nhật bảng giỏ hàng
-                int idHoaDon = Integer.parseInt(txtMaHoaDon.getText());
                 fillTableBangCho();
                 this.fillTable(rp.getAll());
                 try {
@@ -790,8 +822,6 @@ public class Sell extends javax.swing.JPanel {
                 } catch (SQLException ex) {
                     Logger.getLogger(Sell.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                // Cập nhật tổng tiền hóa đơn
                 capNhatTongTienHoaDon(idHoaDon);
 
             } catch (NumberFormatException e) {
@@ -818,13 +848,11 @@ public class Sell extends javax.swing.JPanel {
         try {
             int idHoaDon = Integer.parseInt(txtMaHoaDon.getText());
 
-            // Kiểm tra giỏ hàng
             if (bh.getHoaDonChiTietByIdHoaDon(idHoaDon).isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Giỏ hàng trống.");
                 return;
             }
 
-            // Kiểm tra thông tin khách hàng
             String soDienThoai = txtSoDienThoai.getText();
             String tenKhachHang = txtTenKhachHang.getText();
             if (soDienThoai.isEmpty() || tenKhachHang.isEmpty()) {
@@ -832,13 +860,12 @@ public class Sell extends javax.swing.JPanel {
                 return;
             }
 
-            // Kiểm tra số tiền thanh toán
             String hinhThucThanhToan = (String) cboHinhThucThanhToan.getSelectedItem();
             BigDecimal tongTien = new BigDecimal(txtTongTien.getText());
             BigDecimal tienThanhToan = BigDecimal.ZERO;
 
             if (hinhThucThanhToan.equals("Chuyển khoản")) {
-                tienThanhToan = tongTien; // Thanh toán bằng chuyển khoản, tiền thanh toán bằng tổng tiền
+                tienThanhToan = tongTien;
             } else {
                 try {
                     tienThanhToan = new BigDecimal(txtTienThanhToan.getText());
@@ -855,11 +882,10 @@ public class Sell extends javax.swing.JPanel {
             BigDecimal tienThua = tienThanhToan.subtract(tongTien);
             txtTienThua.setText(tienThua.toString());
 
-            // Cập nhật hóa đơn
             HoaDon hoaDon = new HoaDon();
             hoaDon.setId(idHoaDon);
             hoaDon.setTenKhachHang(tenKhachHang);
-            hoaDon.setTenNhanVien(Login.tenNhanVienDangNhap); // Lấy tên nhân viên từ form Login
+            hoaDon.setTenNhanVien(Login.tenNhanVienDangNhap);
             hoaDon.setHinhThucThanhToan(hinhThucThanhToan);
             hoaDon.setTongTien(tongTien);
             hoaDon.setTrangThai("Đã thanh toán");
@@ -867,9 +893,7 @@ public class Sell extends javax.swing.JPanel {
 
             JOptionPane.showMessageDialog(this, "Thanh toán thành công!");
             fillTable2();
-            // Xóa giỏ hàng
-            // Tạo hóa đơn mới (tùy chọn)
-            // ...
+            fillTable(rp.getAll());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Mã hóa đơn không hợp lệ.");
         } catch (SQLException e) {
@@ -920,8 +944,8 @@ public class Sell extends javax.swing.JPanel {
             DetailSanPham detailSanPham = bh.getDetailSanPhamById(idSanPhamChiTiet);
 
             HoaDonChiTiet hdct = new HoaDonChiTiet();
-            int newId = bh.generateHoaDonChiTietId(); // Tạo ID mới
-            hdct.setId(newId); // Gán ID mới cho hdct
+            int newId = bh.generateHoaDonChiTietId();
+            hdct.setId(newId);
 
             hdct.setIdHoaDon(idHoaDon);
             hdct.setIdSanPhamChiTiet(idSanPhamChiTiet);
@@ -934,13 +958,10 @@ public class Sell extends javax.swing.JPanel {
             hdct.setGiaBan(giaBan);
             hdct.setSoLuong(soLuong);
             hdct.setThanhTien(thanhTien);
-            hdct.setTrangThai("Chưa thanh toán"); // Hoặc trạng thái mặc định khác
+            hdct.setTrangThai("Chưa thanh toán");
             bh.themHoaDonChiTiet(hdct);
             bh.giamSoLuongTonKho(idSanPhamChiTiet, soLuong);
-            // Cập nhật bảng giỏ hàng
             fillTableBangCho();
-
-            // Cập nhật tổng tiền hóa đơn
             capNhatTongTienHoaDon(idHoaDon);
 
         } catch (NumberFormatException e) {
@@ -954,12 +975,11 @@ public class Sell extends javax.swing.JPanel {
         try {
             BigDecimal tongTien = bh.tinhTongTienHoaDon(idHoaDon);
 
-            // Kiểm tra tongTien trước khi gọi toString()
-            txtTongTien.setText(tongTien != null ? tongTien.toString() : "0"); // Hiển thị "0" nếu tongTien là null
+            txtTongTien.setText(tongTien != null ? tongTien.toString() : "0"); 
 
             HoaDon hoaDon = new HoaDon();
             hoaDon.setId(idHoaDon);
-            hoaDon.setTongTien(tongTien); // tongTien có thể là null
+            hoaDon.setTongTien(tongTien); 
             bh.capNhatHoaDon(hoaDon);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Lỗi khi cập nhật tổng tiền: " + e.getMessage());
@@ -987,14 +1007,16 @@ public class Sell extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             int idHoaDon = Integer.parseInt(txtMaHoaDon.getText());
+                String trangThaiHoaDon = bh.getTrangThaiHoaDonById(idHoaDon);
+                if (trangThaiHoaDon != null && (trangThaiHoaDon.equals("Đã thanh toán") || trangThaiHoaDon.equals("Đã hủy"))) {
+                    JOptionPane.showMessageDialog(this, "Không thể xóa sản phẩm khỏi hóa đơn đã thanh toán hoặc đã hủy.");
+                    return;
+                }
 
-            // Lấy danh sách sản phẩm trong giỏ hàng
             ArrayList<HoaDonChiTiet> listHoaDonChiTiet = bh.getHoaDonChiTietByIdHoaDon(idHoaDon);
 
-            // Xóa toàn bộ sản phẩm khỏi HOADONCHITIET
             bh.xoaToanBoGioHang(idHoaDon);
 
-            // Tăng lại số lượng tồn kho cho từng sản phẩm
             for (HoaDonChiTiet hdct : listHoaDonChiTiet) {
                 bh.tangSoLuongTonKho(hdct.getIdSanPhamChiTiet(), hdct.getSoLuong());
             }
@@ -1018,13 +1040,8 @@ public class Sell extends javax.swing.JPanel {
     private void tblHoaDon1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDon1MouseClicked
         int selectedRow = tblHoaDon1.getSelectedRow();
         if (selectedRow >= 0) {
-            // Lấy ID hóa đơn từ bảng
             int idHoaDon = (int) tblHoaDon1.getValueAt(selectedRow, 0);
-
-            // Điền ID hóa đơn vào JTextField mã hóa đơn
             txtMaHoaDon.setText(String.valueOf(idHoaDon));
-
-            // ... (Các thao tác khác, ví dụ: cập nhật bảng "Giỏ hàng")
         }
         if (evt.getClickCount() == 2) {
             fillTableBangCho();
@@ -1118,7 +1135,6 @@ public class Sell extends javax.swing.JPanel {
             BigDecimal tienThua = tienThanhToan.subtract(tongTien);
             txtTienThua.setText(tienThua.toString());
         } catch (NumberFormatException e) {
-            // Xử lý trường hợp người dùng nhập không phải số
             txtTienThua.setText("0");
         }
     }//GEN-LAST:event_txtTienThanhToanKeyReleased
@@ -1159,7 +1175,7 @@ public class Sell extends javax.swing.JPanel {
     private javax.swing.JButton btnTaoHD;
     private javax.swing.JButton btnThem;
     private javax.swing.JComboBox<String> cboHinhThucThanhToan;
-    private javax.swing.JComboBox<String> cboTrangThai;
+    private javax.swing.JComboBox<String> cboLocHoaDon;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1197,4 +1213,16 @@ public class Sell extends javax.swing.JPanel {
     private javax.swing.JTextField txtTimKiem1;
     private javax.swing.JTextField txtTongTien;
     // End of variables declaration//GEN-END:variables
+
+    private void locHoaDon() {
+        String trangThai = (String) cboLocHoaDon.getSelectedItem();
+
+        try {
+            ArrayList<HoaDon> danhSachHoaDon;
+            danhSachHoaDon = bh.getHoaDonTheoTrangThai(trangThai);
+            fillTableHoaDon(danhSachHoaDon);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi lọc hóa đơn: " + ex.getMessage());
+        }
+    }
 }

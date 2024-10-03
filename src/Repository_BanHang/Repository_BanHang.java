@@ -27,12 +27,9 @@ public class Repository_BanHang {
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, hd.getId());
-//            ps.setObject(2, hd.getIdNhanVien());
-//            ps.setObject(3, hd.getIdKhachHang());
-//            ps.setObject(4, hd.getIdHinhThucThanhToan());
-            ps.setString(2, hd.getTenNhanVien()); // Thêm TenNhanVien
-            ps.setString(3, hd.getTenKhachHang()); // Thêm TenKhachHang
-            ps.setString(4, hd.getHinhThucThanhToan()); // Thêm HinhThucThanhToan
+            ps.setString(2, hd.getTenNhanVien());
+            ps.setString(3, hd.getTenKhachHang()); 
+            ps.setString(4, hd.getHinhThucThanhToan()); 
             ps.setString(5, hd.getLichSuHoaDon());
             ps.setBigDecimal(6, hd.getTongTien());
             ps.executeUpdate();
@@ -307,5 +304,82 @@ public class Repository_BanHang {
             e.printStackTrace();
             throw e;
         }
+    }
+
+    public void capNhatHoaDonTrangThai(HoaDon hd) throws SQLException {
+        String sql = "UPDATE HOADON SET LichSuHoaDon = ?, TrangThai = ?, NgaySua = GETDATE() WHERE ID = ?";
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, hd.getLichSuHoaDon());
+            ps.setString(2, hd.getTrangThai());
+            ps.setInt(3, hd.getId());
+            ps.executeUpdate();
+        }
+    }
+
+    public HoaDon getHoaDonById(int idHoaDon) throws SQLException {
+        String sql = "SELECT * FROM HOADON WHERE ID = ?";
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idHoaDon);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                HoaDon hoaDon = new HoaDon();
+                hoaDon.setId(rs.getInt("ID"));
+                hoaDon.setIdNhanVien(rs.getInt("ID_NhanVien"));
+                hoaDon.setIdKhachHang(rs.getInt("ID_KhachHang"));
+                hoaDon.setIdHinhThucThanhToan(rs.getInt("ID_HinhThucThanhToan"));
+                hoaDon.setTenNhanVien(rs.getString("TenNhanVien"));
+                hoaDon.setTenKhachHang(rs.getString("TenKhachHang"));
+                hoaDon.setHinhThucThanhToan(rs.getString("HinhThucThanhToan"));
+                hoaDon.setLichSuHoaDon(rs.getString("LichSuHoaDon"));
+                hoaDon.setTongTien(rs.getBigDecimal("TongTien"));
+                hoaDon.setNgayTao(rs.getDate("NgayTao"));
+                hoaDon.setNgaySua(rs.getDate("NgaySua"));
+                hoaDon.setTrangThai(rs.getString("TrangThai"));
+                return hoaDon;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<HoaDon> getHoaDonTheoTrangThai(String trangThai) throws SQLException {
+        ArrayList<HoaDon> listHoaDon = new ArrayList<>();
+        String sql = "SELECT * FROM HOADON WHERE TrangThai = ?";
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, trangThai);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                HoaDon hd = new HoaDon();
+                hd.setId(rs.getInt("ID"));
+                hd.setIdNhanVien(rs.getInt("ID_NhanVien"));
+                hd.setIdKhachHang(rs.getInt("ID_KhachHang"));
+                hd.setIdHinhThucThanhToan(rs.getInt("ID_HinhThucThanhToan"));
+                hd.setTenNhanVien(rs.getString("TenNhanVien"));
+                hd.setTenKhachHang(rs.getString("TenKhachHang"));
+                hd.setHinhThucThanhToan(rs.getString("HinhThucThanhToan"));
+                hd.setLichSuHoaDon(rs.getString("LichSuHoaDon"));
+                hd.setTongTien(rs.getBigDecimal("TongTien"));
+                hd.setNgayTao(rs.getDate("NgayTao"));
+                hd.setNgaySua(rs.getDate("NgaySua"));
+                hd.setTrangThai(rs.getString("TrangThai"));
+                listHoaDon.add(hd);
+            }
+        }
+        return listHoaDon;
+    }
+
+    public String getTrangThaiHoaDonById(int idHoaDon) {
+        String sql = "SELECT TrangThai FROM HOADON WHERE ID = ?";
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idHoaDon);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("TrangThai");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
